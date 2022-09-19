@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -25,7 +26,7 @@ func main() {
 		case 1:
 			iniciarMonitoramento()
 		case 2:
-			fmt.Println("Exibindo Logs...")
+			imprimeLogs()
 		case 0:
 			fmt.Println("Saindo do Programa...")
 			os.Exit(0)
@@ -139,4 +140,13 @@ func registraLog(site string, status bool) {
 	arquivo.Close()
 }
 
-func imprimeLogs
+func imprimeLogs() {
+	fmt.Println("Exibindo Logs...")
+	arquivo, err := ioutil.ReadFile("log.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro: ", err)
+	}
+
+	fmt.Println(string(arquivo))
+}
